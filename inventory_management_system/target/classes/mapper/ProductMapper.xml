@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mo.mapper.ProductMapper">
+
+    <select id="findProductListByMap" resultType="com.mo.pojo.Product" parameterType="java.util.Map">
+
+        select p.*,c.name as clothing_types_name from product p , clothing_types c
+        where 1=1
+        <if test="name !=null and name !=''">
+            and p.name like concat(concat('%',#{name}),'%')
+        </if>
+        <if test="clothing_types_id !=null and clothing_types_id !=0">
+            and p.clothing_types_id =#{clothing_types_id}
+        </if>
+        <if test="clothing_sex !=null and clothing_sex !=0">
+            and p.clothing_sex =#{clothing_sex}
+        </if>
+        and p.clothing_types_id=c.id
+        ORDER BY p.modify_time desc limit #{start},10
+    </select>
+
+    <select id="findProductCountByMap" resultType="java.lang.Integer" parameterType="java.util.Map">
+        select count(1) from product
+        where 1=1
+        <if test="name !=null and name !=''">
+            and name like concat(concat('%',#{name}),'%')
+        </if>
+        <if test="clothing_types_id !=null and clothing_types_id !=0">
+            and clothing_types_id =#{clothing_types_id}
+        </if>
+        <if test="clothing_sex !=null and clothing_sex !=0">
+            and clothing_sex =#{clothing_sex}
+        </if>
+    </select>
+
+    <!-- <select id="detailMaterialRecord" resultType="com.mo.pojo.MaterialRecord" parameterType="java.lang.Integer">
+         select c.*,m.name as material_name,e.name as employee_name
+         from material_record  c ,material m,employee e
+         where c.mid=#{id}
+         and c.mid=m.id
+         and e.id=m.create_by
+         ORDER BY c.create_time desc
+         limit #{start},10
+     </select>-->
+
+    <insert id="insertProduct" parameterType="com.mo.pojo.Product">
+        insert into Product(
+        pid,
+        name,
+        clothing_types_id,
+        clothing_sex,
+        style,
+        color,
+        unit_price,
+        size,
+        unit,
+        minimum_stock,
+        total_quantity,
+        available_quantity,
+        frozen_quantity,
+        requisite_delivery_quantity,
+        note,
+        create_by,
+        create_time
+        ) values(
+        #{pid},
+        #{name},
+        #{clothing_types_id},
+        #{clothing_sex},
+        #{style},
+        #{color},
+        #{unit_price},
+        #{size},
+        #{unit},
+        #{minimum_stock},
+        #{total_quantity},
+        #{available_quantity},
+        #{frozen_quantity},
+        #{requisite_delivery_quantity},
+        #{note},
+        #{create_by},
+        now()
+        )
+    </insert>
+
+    <update id="updateProduct" parameterType="com.mo.pojo.Product">
+        update product set
+        <if test="name !=null and name !=''">
+            name = #{name},
+        </if>
+        <if test="clothing_types_id !=null">
+            clothing_types_id = #{clothing_types_id},
+        </if>
+        <if test="clothing_sex !=null">
+            clothing_sex = #{clothing_sex},
+        </if>
+        <if test="style !=null and style !='style'">
+            style = #{style},
+        </if>
+        <if test="color !=null and color !=''">
+            color = #{color},
+        </if>
+        <if test="unit_price !=null">
+            unit_price = #{unit_price},
+        </if>
+        <if test="size !=null">
+            size = #{size},
+        </if>
+        <if test="unit !=null and unit !=''">
+            unit = #{unit},
+        </if>
+        <if test="minimum_stock !=null">
+            minimum_stock = #{minimum_stock},
+        </if>
+        <if test="total_quantity !=null">
+            total_quantity = #{total_quantity},
+        </if>
+        <if test="available_quantity !=null">
+            available_quantity = #{available_quantity},
+        </if>
+        <if test="frozen_quantity !=null">
+            frozen_quantity = #{frozen_quantity},
+        </if>
+        <if test="requisite_delivery_quantity">
+            requisite_delivery_quantity = #{requisite_delivery_quantity},
+        </if>
+        <if test="note !=null and note !=''">
+            note = #{note},
+        </if>
+        modify_time=now(),
+        modify_by=#{modify_by}
+        where id=#{id}
+    </update>
+
+</mapper>

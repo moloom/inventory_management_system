@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common::commontHead">
+</head>
+<body class="nav-md footer_fixed" data-genuitec-lp-enabled="false" data-genuitec-file-id="wc1-18">
+<div class="container body" data-genuitec-lp-enabled="false" data-genuitec-file-id="wc1-18">
+    <div class="main_container">
+        <div th:replace="common::commonMenu"></div>
+        <div th:replace="common::commonTop"></div>
+
+        <div class="right_col" role="main">
+            <div class="">
+                <div class="col-md-12">
+                    <div class="col-middle">
+                        <div class="text-center text-center">
+                            <h1 class="error-number">Error</h1>
+                        </div>
+                        <span>[[${msg}]]</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div th:replace="common::commonFooter"></div>
+    </div>
+</div>
+<div th:replace="common::commonJs"></div>
+
+</body>
+</html>
+

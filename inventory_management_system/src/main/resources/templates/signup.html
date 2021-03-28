@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <base href="<%=basePath%>">
+    <title>库存管理系统</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap -->
+    <link href="/static/css/bootstraps/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="/static/css/font-awesome.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="/static/css/nprogress.css" rel="stylesheet">
+    <!-- Custom Theme Style -->
+    <link href="/static/css/custom.min.css" rel="stylesheet">
+    <style>
+        .m1 {
+            border: 1px solid yellow;
+        }
+    </style>
+</head>
+
+<body class="login">
+<div>
+    <div class="login_wrapper">
+        <div class="animate form login_form">
+            <section class="login_content">
+                <form action="/signup" method="post" name="actionForm"
+                      id="actionForm">
+                    <h1>注&nbsp;&nbsp;册</h1>
+                    <div>
+                        <input type="text" class="form-control" name="name" placeholder="姓名"/>
+                    </div>
+                    <div>
+                        <input type="text" class="form-control" name="telephone" placeholder="手机号码"/>[[${session.idd}]]
+                    </div>
+                    <div>
+                        <input type="password" class="form-control" name="password" placeholder="密码"/>
+                    </div>
+                    <!--职位，下拉框-->
+                    <div>
+                        <select class="form-control" name="duty_id" id="duty_id">
+                            <option value="0">------请选择------</option>
+                            <option th:each="duty : ${dutyMsg}" th:text="${duty.name}" th:value="${duty.id}"></option>
+                        </select>
+                    </div>
+                    <br/>
+                    <div style="width: 75%; margin-top: -5px;">
+                        男：<input type="radio" class="flat" name="sex" id="genderM" value="1" checked="" required/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        女：<input type="radio" class="flat" name="sex" id="genderF" value="0"/>
+                    </div>
+                    <fieldset style="width: 115%;margin-top: 10px;margin-left: -10px;">
+                        <div>
+                            <div class="controls">
+                                <div class="col-md-11 xdisplay_inputx form-group has-feedback">
+                                    <!--!!!!!!autocomplete="off"可以关闭输入框自动显示历史输入的数据-->
+                                    <input autocomplete="off" type="text" class="form-control has-feedback-left"
+                                           id="single_cal2"
+                                           placeholder="生日" name="birthday" aria-describedby="inputSuccess2Status2">
+                                    <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
+                                    <span id="inputSuccess2Status2" class="sr-only"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <span th:text="${session.msg}"></span>
+                    <p class="change_link" style="margin-right: -200px;">
+                        <a th:href="@{/login}" class="to_register">有账号，去登录? </a>
+                    </p>
+                    <div style="clear: left;">
+                        <input class="btn btn-success" type="button" id="sub" value="确定"/>
+                        <input class="btn btn-info" type="reset" value="重置"/>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="separator">
+                        <div class="clearfix"></div>
+                        <br/>
+                        <div>
+                            <h1><i class="fa fa-paw"></i> 库存管理系统</h1>
+                            <p>©2021 All Rights Reserved. Gentelella Alela! is a Bootstrap 3 template. Privacy and
+                                Terms</p>
+                        </div>
+                    </div>
+                </form>
+            </section>
+        </div>
+    </div>
+</div>
+<!-- jQuery -->
+<script src="/static/js/jquery.min.js"></script>
+<!-- Bootstrap -->
+<script src="/static/js/bootstrap.min.js"></script>
+<!-- Custom Theme Scripts -->
+<script src="/static/js/custom.min.js"></script>
+<!-- bootstrap-daterangepicker -->
+<script src="/static/js/moment/moment.min.js"></script>
+<script src="/static/js/datepicker/daterangepicker.js"></script>
+<script src="/static/localjs/time.js"></script>
+<!-- /bootstrap-daterangepicker -->
+<script src="/static/localjs/signup.js"></script>
+</body>
+</html>

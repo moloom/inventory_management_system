@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mo.mapper.MaterialMapper">
+
+    <select id="findMaterialListByNameAndSupplier" resultType="com.mo.pojo.Material" parameterType="java.util.Map">
+
+        select m.*,s.name as supplier_name from material m , supplier s
+        where 1=1
+        <if test="name !=null and name !=''">
+            and m.name like concat(concat('%',#{name}),'%')
+        </if>
+        <if test="supplier_id !=null and supplier_id !=''">
+            and m.supplier_id =#{supplier_id}
+        </if>
+        and m.supplier_id=s.id
+        ORDER BY m.modify_time desc limit #{start},10
+    </select>
+
+    <select id="findMaterialCountByNameAndSupplier" resultType="java.lang.Integer" parameterType="java.util.Map">
+        select count(1) from material m
+        where 1=1
+        <if test="name !=null and name !=''">
+            and m.name like concat(concat('%',#{name}),'%')
+        </if>
+        <if test="supplier_id !=null and supplier_id !=''">
+            and m.supplier_id =#{supplier_id}
+        </if>
+    </select>
+
+    <select id="detailMaterialRecord" resultType="com.mo.pojo.MaterialRecord" parameterType="java.lang.Integer">
+        select c.*,m.name as material_name,e.name as employee_name
+        from material_record  c ,material m,employee e
+        where c.mid=#{id}
+        and c.mid=m.id
+        and e.id=m.create_by
+        ORDER BY c.create_time desc
+        limit #{start},10
+    </select>
+
+    <update id="updateMaterial" parameterType="com.mo.pojo.Material">
+        update material set
+        <if test="name !=null and name !=''">
+            name = #{name},
+        </if>
+        <if test="specification !=null and specification !=''">
+            specification = #{specification},
+        </if>
+        <if test="color !=null and color !=''">
+            color = #{color},
+        </if>
+        <if test="unit_price !=null">
+            unit_price = #{unit_price},
+        </if>
+        <if test="position !=null and position !=''">
+            position = #{position},
+        </if>
+        <if test="minimum_stock !=null">
+            minimum_stock = #{minimum_stock},
+        </if>
+        <if test="unit !=null and unit !=''">
+            unit = #{unit},
+        </if>
+        <if test="supplier_id !=null">
+            supplier_id = #{supplier_id},
+        </if>
+        <if test="note !=null and note !=''">
+            note = #{note},
+        </if>
+        <if test="total_quantity !=null and total_quantity !=0">
+            total_quantity = #{total_quantity},
+        </if>
+        <if test="available_quantity !=null and available_quantity !=0">
+            available_quantity = #{available_quantity},
+        </if>
+        <if test="frozen_quantity !=null and frozen_quantity !=0">
+            frozen_quantity = #{frozen_quantity},
+        </if>
+        <if test="requisite_delivery_quantity !=null and requisite_delivery_quantity !=0">
+            requisite_delivery_quantity = #{requisite_delivery_quantity},
+        </if>
+        modify_time=now(),
+        modify_by=#{modify_by}
+        where id=#{id}
+    </update>
+
+</mapper>

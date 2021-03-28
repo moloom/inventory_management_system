@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common::commontHead">
+</head>
+<body class="nav-md footer_fixed" data-genuitec-lp-enabled="false" data-genuitec-file-id="wc1-18">
+<div class="container body" data-genuitec-lp-enabled="false" data-genuitec-file-id="wc1-18">
+    <div class="main_container">
+        <div th:replace="common::commonMenu"></div>
+        <div th:replace="common::commonTop"></div>
+        <div class="right_col" role="main">
+            <div class="">
+                <!--content-->
+                <div class="clearfix"></div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h2>增加商品 <small th:replace="common::commonContentTitle"></small></h2>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div></div>
+                            <div class="x_content">
+                                <div class="clearfix"></div>
+                                <div class="form-horizontal form-label-left">
+                                    <form action="/addProduct" method="post">
+                                        <input type="hidden" name="create_by"
+                                               th:value="${session.employeeSession.getId()}">
+                                        <div class="item form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12">商品名称 <span
+                                                    class="required">*</span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <input class="form-control col-md-7 col-xs-12"
+                                                       data-validate-length-range="20" data-validate-words="1"
+                                                       name="name" autocomplete="off"
+                                                       required="required" type="text">
+                                            </div>
+                                        </div>
+                                        <div class="item form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12">服装类型 <span
+                                                    class="required">*</span>
+                                            </label>
+                                            <select style="margin-left: 13px;padding: 7px 24% 7px 10%;font-size:15px;border-color: silver;width: 48%;"
+                                                    name="clothing_types_id" id="clothing_types_id">
+                                                <option value="0">------请选择------</option>
+                                                <option th:each="ct : ${clothingTypesList}" th:text="${ct.name}"
+                                                        th:value="${ct.id}"></option>
+                                            </select>
+                                        </div>
+                                        <div class="item form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12">性别分类<span
+                                                    class="required">*</span>
+                                            </label>
+                                            <select style="margin-left: 13px;padding: 7px 24% 7px 10%;font-size:15px;border-color: silver;width: 48%;"
+                                                    name="clothing_sex" id="clothing_sex">
+                                                <option value="0">------请选择------</option>
+                                                <option value="1">男性服装</option>
+                                                <option value="2">女性服装</option>
+                                                <option value="3">中性服装(男女都可以穿)</option>
+                                            </select>
+                                        </div>
+                                        <div class="item form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12">款式 <span
+                                                    class="required">*</span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <input class="form-control col-md-7 col-xs-12"
+                                                       data-validate-length-range="20" data-validate-words="1"
+                                                       name="style" autocomplete="off"
+                                                       required="required" type="text">
+                                            </div>
+                                        </div>
+                                        <div class="item form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12">颜色 <span
+                                                    class="required">*</span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <input class="form-control col-md-7 col-xs-12" autocomplete="off"
+                                                       data-validate-length-range="20" data-validate-words="1"
+                                                       name="color" type="text" required="required">
+                                            </div>
+                                        </div>
+                                        <div class="item form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12">单价 /元 <span
+                                                    class="required">*</span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <input class="form-control col-md-7 col-xs-12"
+                                                       data-validate-length-range="20" data-validate-words="1"
+                                                       name="unit_price" autocomplete="off"
+                                                       required="required" type="text">
+                                            </div>
+                                        </div>
+                                        <div class="item form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12">尺码<span
+                                                    class="required">*</span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <input class="form-control col-md-7 col-xs-12"
+                                                       data-validate-length-range="20" data-validate-words="1"
+                                                       name="size" autocomplete="off"
+                                                       placeholder="衣服的尺码:(1~6表示XS-S-M-L-XL-XXL尺码)，裤子直接用数值尺码"
+                                                       required="required" type="text">
+                                            </div>
+                                        </div>
+                                        <div class="item form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12">单位 <span
+                                                    class="required">*</span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <input class="form-control col-md-7 col-xs-12"
+                                                       data-validate-length-range="20" data-validate-words="1"
+                                                       name="unit" autocomplete="off"
+                                                       required="required" type="text">
+                                            </div>
+                                        </div>
+                                        <div class="item form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12">最低库存 <span
+                                                    class="required">*</span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <input class="form-control col-md-7 col-xs-12"
+                                                       data-validate-length-range="20" data-validate-words="1"
+                                                       name="minimum_stock" autocomplete="off"
+                                                       required="required" type="text">
+                                            </div>
+                                        </div>
+                                        <div class="item form-group">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12">备注 <span
+                                                    class="required">*</span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <textarea class="form-control col-md-7 col-xs-12" id="note"></textarea>
+                                            </div>
+                                        </div>
+
+                                        <div class="ln_solid"></div>
+                                        <div class="form-group">
+                                            <div class="col-md-6 col-md-offset-3">
+                                                <button id="submit" type="submit" class="btn btn-success">提交</button>
+                                                <button type="button" class="btn btn-primary" id="back">返回</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div th:replace="common::commonFooter"></div>
+    </div>
+</div>
+<div th:replace="common::commonJs"></div>
+</body>
+</html>
+

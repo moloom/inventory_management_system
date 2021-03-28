@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mo.mapper.CustomerMapper">
+
+    <select id="findCustomerListByName" resultType="com.mo.pojo.Customer" parameterType="java.util.Map">
+
+        select * from customer
+        where 1=1
+        <if test="name !=null and name !=''">
+            and name like concat(concat('%',#{name}),'%')
+        </if>
+        ORDER BY modify_time desc limit #{start},10
+    </select>
+
+    <select id="findCustomerCountByName" resultType="java.lang.Integer" parameterType="java.util.Map">
+        select count(1) from customer
+        where 1=1
+        <if test="name !=null and name !=''">
+            and name like concat(concat('%',#{name}),'%')
+        </if>
+    </select>
+
+    <update id="updateCustomer" parameterType="com.mo.pojo.Customer">
+        update customer set
+        <if test="name !=null and name !=''">
+            name = #{name},
+        </if>
+        <if test="contact !=null and contact !=''">
+            contact = #{contact},
+        </if>
+        <if test="telephone !=null and telephone !=''">
+            telephone = #{telephone},
+        </if>
+        <if test="address !=null and address !=''">
+            address = #{address},
+        </if>
+        modify_time=now(),
+        modify_by=#{modify_by}
+        where id=#{id}
+    </update>
+
+</mapper>
