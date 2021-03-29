@@ -12,13 +12,23 @@ public class InRepository {
     private String unit_price;
     private BigDecimal total_price;
     private String supplier_id;
+
     private Integer status;
-    private Timestamp deliver_date;
+    //1:正常入库，2:正常出库，3:退货（退货动作发生时，数量取它的相反数，并加减物料的总数量和可用数量）
+    private Timestamp deliver_date;//这个可以删掉。
     private Integer repository_id;
     private Integer create_by;
     private Timestamp create_time;
     private Integer modify_by;
     private Timestamp modify_time;
+
+    //取货部门
+    private String takeDepatement;
+    //取货人姓名
+    private String takeName;
+
+
+    /*物料出入库的时候，在页面中放一个下拉框，选择出库、入库，根据选择，增加或者隐藏不相干的输入框*/
 
     public InRepository() {
     }

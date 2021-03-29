@@ -19,6 +19,12 @@ public class OutRepository {
     private Integer modify_by;
     private Timestamp modify_time;
 
+
+    //入库部门
+    private String takeDepartment;
+    //交付人姓名
+    private String takeName;
+
     public OutRepository() {
     }
 
