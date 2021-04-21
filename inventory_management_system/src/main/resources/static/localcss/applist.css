@@ -1,0 +1,15 @@
+[genuitec-file-id="wc1-37"],[genuitec-lp-path="/AppInformationManagementPlatform/WebRoot/statics/localcss/applist.css"],[genuitec-lp-enabled=false]{
+  /* for codelive */
+}
+
+.x_content form ul {
+	list-style: none;
+}
+
+.x_content form ul li {
+	width: 350px;
+	display: inline-block;
+	height:40px;
+	line-height: 40px;
+	vertical-align: middle;
+}

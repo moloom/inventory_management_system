@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common::commontHead">
+</head>
+<body class="nav-md footer_fixed" data-genuitec-lp-enabled="false" data-genuitec-file-id="wc1-18">
+<div class="container body" data-genuitec-lp-enabled="false" data-genuitec-file-id="wc1-18">
+    <div class="main_container">
+        <div th:replace="common::commonMenu"></div>
+        <div th:replace="common::commonTop"></div>
+        <div class="right_col" role="main">
+            <div class="">
+                <div class="clearfix"></div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h2>管理商品单据 <small th:replace="common::commonContentTitle"></small></h2>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div>
+                                <form method="get" id="form1" action="/managePInOutRepository.html">
+                                    <input type="hidden" name="pageindex" value="0"/>
+                                    <div style="width: 29%;float: left;">
+                                        <div class="form-group">
+                                            <label style="margin-top: 8px;margin-right: 0px;"
+                                                   class="control-label col-md-3 col-sm-3 col-xs-12">单据编号:</label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <input name="bid" type="text" autocomplete="off"
+                                                       class="form-control col-md-7 col-xs-12">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div style="width: 22%;float: left;">
+                                        <div class="form-group">
+                                            <label style="margin-top: 8px;"
+                                                   class="control-label col-md-3 col-sm-3 col-xs-12">状态:</label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <select name="status" id="status" class="form-control">
+                                                    <option value="0">--请选择--</option>
+                                                    <option value="1">入库</option>
+                                                    <option value="2">出库</option>
+                                                    <option value="3">退货</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div style="width: 22%;float: left;">
+                                        <div class="form-group">
+                                            <label style="margin-top: 8px;"
+                                                   class="control-label col-md-3 col-sm-3 col-xs-12">仓库:</label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <select id="repository_id" name="repository_id"
+                                                        class="form-control">
+                                                    <option value="0">--请选择--</option>
+                                                    <option th:each="repository : ${repositoryList}"
+                                                            th:text="${repository.name}"
+                                                            th:value="${repository.id}"></option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div style="width: 25%;float: left;">
+                                        <div class="form-group">
+                                            <label style="margin-top: 8px;"
+                                                   class="control-label col-md-3 col-sm-3 col-xs-12">创建时间:</label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <select name="dayTime" id="dayTime" class="form-control">
+                                                    <option value="-1">--请选择--</option>
+                                                    <option value="1">最近1天内</option>
+                                                    <option value="3">最近3天内</option>
+                                                    <option value="7">最近7天内</option>
+                                                    <option value="15">最近15天内</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <input style="margin-top: 10px;" type="submit" id="sub" class="btn btn-primary"
+                                               value="查询"/>&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <input style="margin-top: 10px;" type="reset" class="btn btn-info" value="重置条件">
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="x_panel">
+                            <div class="x_content">
+                                <p class="text-muted font-13 m-b-30"></p>
+                                <div id="datatable-responsive_wrapper"
+                                     class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <table id="datatable-responsive"
+                                                   class="table table-striped table-bordered dt-responsive nowrap dataTable no-footer dtr-inline collapsed"
+                                                   cellspacing="0" width="100%" role="grid"
+                                                   aria-describedby="datatable-responsive_info"
+                                                   style="width: 100%;">
+                                                <thead>
+                                                <tr role="row">
+                                                    <th class="sorting_asc" tabindex="0"
+                                                        aria-controls="datatable-responsive" rowspan="1" colspan="1"
+                                                        style="width: 12%;"
+                                                        aria-label="First name: activate to sort column descending"
+                                                        aria-sort="ascending">单据编号
+                                                    </th>
+                                                    <th class="sorting" tabindex="0"
+                                                        aria-controls="datatable-responsive" rowspan="1" colspan="1"
+                                                        style="width: 10%;"
+                                                        aria-label="Last name: activate to sort column ascending">
+                                                        单据状态
+                                                    </th>
+                                                    <th class="sorting" tabindex="0"
+                                                        aria-controls="datatable-responsive" rowspan="1" colspan="1"
+                                                        style="width: 9%;"
+                                                        aria-label="Last name: activate to sort column ascending">
+                                                        总金额
+                                                    </th>
+                                                    <th class="sorting" tabindex="0"
+                                                        aria-controls="datatable-responsive" rowspan="1" colspan="1"
+                                                        style="width: 9%;"
+                                                        aria-label="Last name: activate to sort column ascending">
+                                                        出入库操作人
+                                                    </th>
+                                                    <th class="sorting" tabindex="0"
+                                                        aria-controls="datatable-responsive" rowspan="1" colspan="1"
+                                                        style="width: 8%;"
+                                                        aria-label="Last name: activate to sort column ascending">
+                                                        交付日期
+                                                    </th>
+                                                    <th class="sorting" tabindex="0"
+                                                        aria-controls="datatable-responsive" rowspan="1" colspan="1"
+                                                        style="width: 12%;"
+                                                        aria-label="Last name: activate to sort column ascending">
+                                                        单据创建时间
+                                                    </th>
+                                                    <th class="sorting" tabindex="0"
+                                                        aria-controls="datatable-responsive" rowspan="1" colspan="1"
+                                                        style="width: 8%;"
+                                                        aria-label="Last name: activate to sort column ascending">
+                                                        操作
+                                                    </th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr role="row" class="odd" th:each="pior : ${piorList}">
+                                                    <td>[[${pior.bid}]]</td>
+                                                    <td th:if="${pior.status==1}">入库</td>
+                                                    <td th:if="${pior.status==2}">出库</td>
+                                                    <td th:if="${pior.status==3}">退货</td>
+                                                    <td>[[${pior.total_price}]]</td>
+                                                    <td>[[${pior.create_name}]]</td>
+                                                    <td>[[${#dates.format(pior.deliver_date,'yyyy-MM-dd')}]]</td>
+                                                    <td>[[${#dates.format(pior.create_time,'yyyy-MM-dd HH:mm:ss')}]]
+                                                    </td>
+                                                    <td>
+                                                        <div class="btn-group">
+                                                            <button type="button" class="btn btn-danger">操作
+                                                            </button>
+                                                            <button type="button"
+                                                                    class="btn btn-danger dropdown-toggle"
+                                                                    data-toggle="dropdown" aria-expanded="false">
+                                                                <span class="caret"></span>
+                                                            </button>
+                                                            <ul class="dropdown-menu" role="menu">
+                                                                <li>
+                                                                    <a th:href="@{'/detailRecordOfPIOR.html?bid='+${pior.bid}}"
+                                                                       data-toggle="tooltip" data-placement="top"
+                                                                       title="">查看单据流水记录</a>
+                                                                </li>
+                                                                <li class="update" th:attr="id=${pior.id}"
+                                                                    th:if="${session.employeeSession.getRights()<3}">
+                                                                    <a data-toggle="tooltip" data-placement="top">修改状态为:退货</a>
+                                                                </li>
+                                                                <li th:if="${session.employeeSession.getRights()<4}">
+                                                                    <a data-toggle="tooltip" data-placement="top"
+                                                                       th:href="@{'/buildPIORList.html?id='+${pior.id}}">
+                                                                        生成单据清单</a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                            <h1 align="center" th:if="${page.totalCount==0}">无符合条件的数据</h1>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" th:if="${page.totalCount!=0}">
+                                    <div class="col-sm-5" style="margin-top: 25px;padding-left: 3%;">
+                                        <div class="dataTables_info" id="datatable-checkbox_info" role="status"
+                                             aria-live="polite"> [[${page.currentPageNo}]] &nbsp;/&nbsp;[[${page.totalPageCount}]]页
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-7" style="padding-right: 3%;">
+                                        <div class="dataTables_paginate paging_simple_numbers"
+                                             id="datatable-responsive_paginate">
+                                            <ul class="pagination">
+                                                <li class="paginate_button previous">
+                                                    <button
+                                                            style="border: 0px;width: 59px;height: 32.4px;color: #337ab7;background-color: #DDDDDD;margin-right: -10px;margin-left: -10px;"
+                                                            onclick="page_nav(0)"
+                                                            aria-controls="datatable-responsive" data-dt-idx="0"
+                                                            tabindex="0">首页
+                                                    </button>
+                                                </li>
+                                                <li class="paginate_button"
+                                                    th:if="${page.currentPageNo>2 and page.totalPageCount>=6}"
+                                                    th:each="i:${#numbers.sequence(page.aheadStart,page.aheadEnd)}">
+                                                    <button
+                                                            style="border: 0px;width: 32px;height: 32.4px;color: #337ab7;background-color: #DDDDDD;margin-right: -2px;margin-left: -2px;"
+                                                            th:onclick="page_nav([[${i-1}]])"
+                                                            tabindex="0">[[${i}]]
+                                                    </button>
+                                                </li>
+                                                <li class="paginate_button"
+                                                    th:if="${(not (page.currentPageNo>2 and page.totalPageCount>=6))and page.currentPageNo !=1}"
+                                                    th:each="i:${#numbers.sequence(page.aheadStart,page.aheadEnd)}">
+                                                    <button
+                                                            style="border: 0px;width: 32px;height: 32.4px;color: #337ab7;background-color: #DDDDDD;margin-right: -2px;margin-left: -2px;"
+                                                            th:onclick="page_nav([[${i-1}]])"
+                                                            tabindex="0">[[${i}]]
+                                                    </button>
+                                                </li>
+                                                <!--当前所在的页数-->
+                                                <li class="paginate_button ">
+                                                    <button
+                                                            style="border: 0px;width: 32px;height: 32.4px;color: #FFFFFF;background-color: #DDDDDD;margin-right: -2px;margin-left: -2px;"
+                                                            th:onclick="page_nav([[${page.currentPageNo-1}]])"
+                                                            tabindex="0">[[${page.currentPageNo}]]
+                                                    </button>
+                                                </li>
+                                                <li class="paginate_button "
+                                                    th:if="${page.currentPageNo !=page.totalPageCount}"
+                                                    th:each="i:${#numbers.sequence(page.afterStart,page.afterEnd)}">
+                                                    <button
+                                                            style="border: 0px;width: 32px;height: 32.4px;color: #337ab7;background-color: #DDDDDD;margin-right: -2px;margin-left: -2px;"
+                                                            th:onclick="page_nav([[${i-1}]])"
+                                                            tabindex="0">[[${i}]]
+                                                    </button>
+                                                </li>
+
+                                                <li class="paginate_button next"
+                                                    th:if="${page.currentPageNo !=page.totalPageCount}">
+                                                    <button
+                                                            style="border: 0px;width: 59px;height: 32.4px;color: #337ab7;background-color: #DDDDDD;margin-right: -10px;margin-left: -10px;"
+                                                            th:onclick="page_nav([[${page.currentPageNo}]])"
+                                                            aria-controls="datatable-responsive" data-dt-idx="7"
+                                                            tabindex="0">下一页
+                                                    </button>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div th:replace="common::commonFooter"></div>
+    </div>
+</div>
+<input type="hidden" th:value="${repository_id}" name="r_id">
+<input type="hidden" th:value="${status}" name="statuss">
+<input type="hidden" th:value="${bid}" name="bidd">
+<input type="hidden" th:value="${dayTime}" name="dayTimee">
+<div th:replace="common::commonJs"></div>
+<script>
+    $(function () {
+        var repository_id = $("input[name='r_id']").val();
+        var status = $("input[name='statuss']").val();
+        var bid = $("input[name='bidd']").val();
+        var dayTime = $("input[name='dayTimee']").val();
+        if (repository_id != null && repository_id != '') $("#repository_id").val(repository_id);
+        if (status != null && status != '') $("#status").val(status);
+        if (bid != null && bid != '') $("#bid").val(bid);
+        if (dayTime != null && dayTime != '') $("#dayTime").val(dayTime);
+    });
+    $(".update").click(function () {
+        if (confirm("是否修改单据状态为：退货？\n此操作不可逆，请谨慎操作！")) {
+            window.location.href = localhostPaht + "/updatePIORStatus.html?id=" + $(this).attr("id");
+        }
+    });
+
+    function page_nav(pageindex) {
+        console.log("page_nav请求页数：" + pageindex);
+        $("input[name='pageindex']").val(pageindex);
+        $("#form1").submit();
+        // window.location.href = localhostPaht + "/detailProductRecord.html?pageindex=" + pageindex;
+    }
+</script>
+</body>
+</html>
+

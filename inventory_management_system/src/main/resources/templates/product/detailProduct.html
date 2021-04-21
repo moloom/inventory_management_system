@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common::commontHead">
+</head>
+<body class="nav-md footer_fixed" data-genuitec-lp-enabled="false" data-genuitec-file-id="wc1-18">
+<div class="container body" data-genuitec-lp-enabled="false" data-genuitec-file-id="wc1-18">
+    <div class="main_container">
+        <div th:replace="common::commonMenu"></div>
+        <div th:replace="common::commonTop"></div>
+        <div class="right_col" role="main">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h2>商品详情 <small th:replace="common::commonContentTitle"></small></h2>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
+                            <form class="form-horizontal form-label-left">
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        商品编号 <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <span class="form-control col-md-7 col-xs-12">
+                                                [[${product.pid}]]
+                                            </span>
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        商品名称 <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <span class="form-control col-md-7 col-xs-12">
+                                                [[${product.name}]]
+                                            </span>
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        服装类型 <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <span class="form-control col-md-7 col-xs-12">
+                                                [[${product.clothing_types_name}]]
+                                            </span>
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        服装性别类型 <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <span class="form-control col-md-7 col-xs-12">
+                                                [[${product.clothing_sex_name}]]
+                                            </span>
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        款式 <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <span class="form-control col-md-7 col-xs-12">
+                                                [[${product.style}]]
+                                            </span>
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        颜色 <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <span class="form-control col-md-7 col-xs-12">
+                                                [[${product.color}]]
+                                            </span>
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        尺码 <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <span class="form-control col-md-7 col-xs-12">
+                                                [[${product.size_name}]]
+                                            </span>
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        单价 <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <span class="form-control col-md-7 col-xs-12">
+                                                [[${product.unit_price}]]
+                                            </span>
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        单位 <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <span class="form-control col-md-7 col-xs-12">
+                                                [[${product.unit}]]
+                                            </span>
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        最低库存 <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <span class="form-control col-md-7 col-xs-12">
+                                                [[${product.minimum_stock}]]
+                                            </span>
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        总数量 <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <span class="form-control col-md-7 col-xs-12">
+                                                [[${product.total_quantity}]]
+                                            </span>
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        可用数量 <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <span class="form-control col-md-7 col-xs-12">
+                                                [[${product.available_quantity}]]
+                                            </span>
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        冻结数量 <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <span class="form-control col-md-7 col-xs-12">
+                                                [[${product.frozen_quantity}]]
+                                            </span>
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        预交付数量 <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <span class="form-control col-md-7 col-xs-12">
+                                                [[${product.requisite_delivery_quantity}]]
+                                            </span>
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        备注 <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <span class="form-control col-md-7 col-xs-12">
+                                                [[${product.note}]]
+                                            </span>
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        创建时间 <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <span class="form-control col-md-7 col-xs-12" th:if="${product!=null}">
+                                                [[${#dates.format(product.create_time,'yyyy-MM-dd HH:mm:ss')}]]
+                                            </span>
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        修改时间 <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <span class="form-control col-md-7 col-xs-12" th:if="${product!=null}">
+                                                [[${#dates.format(product.modify_time,'yyyy-MM-dd HH:mm:ss')}]]
+                                            </span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                    </label>
+                                    <div class="col-md-6 col-md-offset-3">
+                                        <button type="button" class="btn btn-primary" onclick="back()">返回
+                                        </button>
+                                    </div>
+                                </div>
+                                <br/>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div th:replace="common::commonFooter"></div>
+        </div>
+    </div>
+    <div th:replace="common::commonFooter"></div>
+</div>
+</div>
+<div th:replace="common::commonJs"></div>
+<script>
+    function back() {
+        history.go(-1);
+    }
+</script>
+</body>
+</html>
+

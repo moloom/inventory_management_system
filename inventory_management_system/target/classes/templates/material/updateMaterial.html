@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common::commontHead">
+</head>
+<body class="nav-md footer_fixed" data-genuitec-lp-enabled="false" data-genuitec-file-id="wc1-18">
+<div class="container body" data-genuitec-lp-enabled="false" data-genuitec-file-id="wc1-18">
+    <div class="main_container">
+        <div th:replace="common::commonMenu"></div>
+        <div th:replace="common::commonTop"></div>
+        <div class="right_col" role="main">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h2>修改物料 <small th:replace="common::commonContentTitle"></small></h2>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
+                            <form class="form-horizontal form-label-left" method="post" th:action="@{/updateMaterial}">
+                                <!--隐藏输入框，用于补充id，和modify_id-->
+                                <input type="hidden" name="modify_by" th:value="${session.employeeSession.getId()}"/>
+                                <input type="hidden" name="id" th:value="${material.id}"/>
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        物料名 <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" class="form-control col-md-7 col-xs-12"
+                                               name="name" th:value="${material.name}" required="required"/>
+                                    </div>
+                                </div>
+
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        规格 <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" class="form-control col-md-7 col-xs-12" required="required"
+                                               name="specification" th:value="${material.specification}"/>
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        颜色 <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" class="form-control col-md-7 col-xs-12" required="required"
+                                               name="color" th:value="${material.color}"/>
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        单价 <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" class="form-control col-md-7 col-xs-12" required="required"
+                                               name="unit_price" th:value="${material.unit_price}"/>
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        单位 <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" class="form-control col-md-7 col-xs-12" required="required"
+                                               name="unit" th:value="${material.unit}"/>
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">供应商 <span
+                                            class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select class="form-control" name="supplier_id" id="supplier_id"
+                                                th:attr="supplierId=${material.supplier_id}">
+                                            <option value="0">------请选择------</option>
+                                            <option th:each="supplier : ${supplierList}" th:text="${supplier.name}"
+                                                    th:value="${supplier.id}"></option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        位置 <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" class="form-control col-md-7 col-xs-12" required="required"
+                                               name="position" th:value="${material.position}"/>
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        最低库存 <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" class="form-control col-md-7 col-xs-12" required="required"
+                                               name="minimum_stock" th:value="${material.minimum_stock}"/>
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                        备注 <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <textarea class="form-control col-md-7 col-xs-12" name="note"
+                                                  th:value="${material.note}"></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                    </label>
+                                    <div class="col-md-6 col-md-offset-3">
+                                        <button id="submit" type="submit" class="btn btn-success">提交</button>
+                                        <button type="button" class="btn btn-primary" onclick="back()">返回</button>
+                                    </div>
+                                </div>
+                                <br/>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div th:replace="common::commonFooter"></div>
+        </div>
+    </div>
+    <div th:replace="common::commonFooter"></div>
+</div>
+</div>
+<div th:replace="common::commonJs"></div>
+<script src="/static/localjs/updateMaterial.js"></script>
+</body>
+</html>
+

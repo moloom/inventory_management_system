@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="commontHead">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>库存管理系统</title>
+    <!-- Bootstrap -->
+    <link href="/static/css/bootstraps/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="/static/css/font-awesome.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="/static/css/nprogress.css" rel="stylesheet">
+    <!-- iCheck -->
+    <link href="/static/css/green.css" rel="stylesheet">
+    <!-- bootstrap-progressbar -->
+    <link href="/static/css/bootstraps/bootstrap-progressbar-3.3.4.min.css"
+          rel="stylesheet">
+    <!-- JQVMap -->
+    <link href="/static/css/jqvmap.min.css" rel="stylesheet"/>
+    <link href="/static/css/dropzone.min.css" rel="stylesheet">
+    <!-- Custom Theme Style -->
+    <link href="/static/css/custom.min.css" rel="stylesheet">
+    <!--加载图标-->
+    <link rel="icon" type="image/x-icon" href="/static/fa.ico"/>
+</head>
+<!--body标签中，nav-sm是缩小侧边栏，nav-md是展开侧边栏-->
+<body class="nav-md footer_fixed" data-genuitec-lp-enabled="false" data-genuitec-file-id="wc1-18">
+<div class="container body" data-genuitec-lp-enabled="false" data-genuitec-file-id="wc1-18">
+    <div class="main_container">
+        <div class="col-md-3 left_col menu_fixed" th:fragment="commonMenu">
+            <div class="left_col scroll-view">
+                <div class="navbar nav_title" style="border: 0;">
+                    <a th:href="@{/}" class="site_title">
+                        <i class="fa fa-paw"></i>
+                        <span>库存管理系统</span>
+                    </a>
+                </div>
+                <div class="clearfix"></div>
+                <div class="profile">
+                    <div class="profile_pic">
+                        <img src="/static/images/santi1.png" class="img-circle profile_img">
+                    </div>
+                    <div class="profile_info">
+                        <span>Welcome,</span>
+                        <h2>[[${session.employeeSession.getName()}]]</h2>
+                    </div>
+                </div>
+                <br/>
+                <!-- sidebar menu -->
+                <div id="sidebar-menu"
+                     class="main_menu_side hidden-print main_menu">
+                    <div class="menu_section">
+                        <h3>&nbsp;</h3>
+                        <ul class="nav side-menu">
+                            <li>
+                                <a th:href="@{/}">
+                                    <i class="fa fa-home"></i>主页</a>
+                            </li>
+                            <li>
+                                <a>
+                                    <i class="glyphicon glyphicon-file"></i> 商品单据管理
+                                    <span class="fa fa-chevron-down"></span>
+                                </a>
+                                <ul class="nav child_menu">
+                                    <li>
+                                        <a href="/addPInOutRepositoryOne.html">新增商品出入库单据</a>
+                                    </li>
+                                    <li>
+                                        <a href="/managePInOutRepository.html">管理商品单据</a>
+                                    </li>
+                                    <li>
+                                        <a href="/viewAlertRP.html">商品库存报警查询</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a>
+                                    <i class="glyphicon glyphicon-file"></i> 物料单据管理
+                                    <span class="fa fa-chevron-down"></span>
+                                </a>
+                                <ul class="nav child_menu">
+                                    <li>
+                                        <a href="/addMInOutRepositoryOne.html">新增物料出入库单据</a>
+                                    </li>
+                                    <li>
+                                        <a href="/manageMInOutRepository.html">管理物料单据</a>
+                                    </li>
+                                    <li>
+                                        <a href="/viewAlertRM.html">物料库存报警查询</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a><i class="glyphicon glyphicon-tower"></i>&nbsp;&nbsp;供应商
+                                    <span class="fa fa-chevron-down"></span>
+                                </a>
+                                <ul class="nav child_menu">
+                                    <li>
+                                        <a href="/manageSupplier.html">管理供应商</a>
+                                    </li>
+                                    <li>
+                                        <a href="/addSupplier.html">增加供应商</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a><i class="glyphicon glyphicon-user"></i>&nbsp;&nbsp;客户
+                                    <span class="fa fa-chevron-down"></span>
+                                </a>
+                                <ul class="nav child_menu">
+                                    <li>
+                                        <a href="/manageCustomer.html">客户管理</a>
+                                    </li>
+                                    <li>
+                                        <a href="/addCustomer.html">增加客户</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a><i class="glyphicon glyphicon-equalizer"></i>&nbsp;&nbsp;商品
+                                    <span class="fa fa-chevron-down"></span>
+                                </a>
+                                <ul class="nav child_menu">
+                                    <li>
+                                        <a href="/manageProduct.html">商品管理</a>
+                                    </li>
+                                    <li>
+                                        <a href="/addProduct.html">增加商品</a>
+                                    </li>
+                                    <li>
+                                        <a href="/addClothingTypes.html">增加服装类型</a>
+                                    </li>
+                                    <li>
+                                        <a href="/viewClothingTypes.html">查看服装类型</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a><i class="glyphicon glyphicon-folder-close"></i>&nbsp;&nbsp;物料
+                                    <span class="fa fa-chevron-down"></span>
+                                </a>
+                                <ul class="nav child_menu">
+                                    <li>
+                                        <a href="/manageMaterial.html">物料管理</a>
+                                    </li>
+                                    <li>
+                                        <a href="/addMaterial.html">增加物料</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a><i class="glyphicon glyphicon-list"></i>&nbsp;&nbsp;仓库
+                                    <span class="fa fa-chevron-down"></span>
+                                </a>
+                                <ul class="nav child_menu">
+                                    <li>
+                                        <a href="/manageRepository.html">管理仓库</a>
+                                    </li>
+                                    <li>
+                                        <a href="/addRepository.html">增加仓库</a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+                <!-- /menu footer buttons -->
+            </div>
+        </div>
+        <small th:fragment="commonContentTitle">当前用户：[[${session.employeeSession.getName()}]]</small></h2>
+
+        <!-- top navigation -->
+        <div class="top_nav" th:fragment="commonTop">
+            <div class="nav_menu">
+                <nav>
+                    <div class="nav toggle">
+                        <a id="menu_toggle"><i class="fa fa-bars"></i> </a>
+                    </div>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li role="presentation" class="dropdown">
+                            <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown"
+                               aria-expanded="false">
+                                <i class="glyphicon glyphicon-user"></i>&nbsp;&nbsp;[[${session.employeeSession.getName()}]]
+                            </a>
+                            <ul class="dropdown-menu dropdown-usermenu pull-right">
+                                <li><a th:href="@{'/employeeDetail.html?id='+${session.employeeSession.getId()}}">
+                                    <i class="fa pull-right fa-search-plus"></i>我的资料</a>
+                                </li>
+                                <li><a href="/updatePassword.html">
+                                    <i class="fa pull-right fa-wrench"></i>修改密码</a>
+                                </li>
+                                <li><a href="/logOut.html">
+                                    <i class="fa fa-sign-out pull-right"></i>退出登录</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <!-- /top navigation -->
+
+        <div class="right_col" role="main">
+            <div class="">
+
+
+            </div>
+        </div>
+
+        <!-- footer content -->
+        <footer th:fragment="commonFooter">
+            <div class="pull-right">2021 All Rights Reserved.</div>
+            <div class="clearfix"></div>
+        </footer>
+        <!-- /footer content -->
+    </div>
+</div>
+<div th:fragment="commonJs">
+    <!-- jQuery -->
+    <script src="/static/js/jquery.min.js" data-genuitec-lp-enabled="false"
+            data-genuitec-file-id="wc1-19"></script>
+    <!-- Bootstrap -->
+    <script src="/static/js/bootstrap.min.js"></script>
+    <!-- FastClick -->
+    <script src="/static/js/fastclick.js"></script>
+    <!-- NProgress -->
+    <script src="/static/js/nprogress.js"></script>
+    <!-- jQuery custom content scroller -->
+    <script src="/static/js/jquery.mCustomScrollbar.concat.min.js"></script>
+    <!-- Custom Theme Scripts -->
+    <script src="/static/js/custom.min.js"></script>
+    <!-- dropzone -->
+    <script src="/static/js/dropzone.js"></script>
+    <!-- Chart.js -->
+    <script src="/static/js/Chart.min.js"></script>
+    <!-- gauge.js -->
+    <script src="/static/js/gauge.min.js"></script>
+    <!-- bootstrap-progressbar -->
+    <script src="/static/js/bootstrap-progressbar.min.js"></script>
+    <!-- iCheck -->
+    <script src="/static/js/icheck.min.js"></script>
+    <!-- Skycons -->
+    <script src="/static/js/skycons.js"></script>
+    <!-- Flot -->
+    <script src="/static/js/jquery.flot.js"></script>
+    <script src="/static/js/jquery.flot.pie.js"></script>
+    <script src="/static/js/jquery.flot.time.js"></script>
+    <script src="/static/js/jquery.flot.stack.js"></script>
+    <script src="/static/js/jquery.flot.resize.js"></script>
+    <!-- Flot plugins -->
+    <script src="/static/js/jquery.flot.orderBars.js"></script>
+    <script src="/static/js/jquery.flot.spline.min.js"></script>
+    <script src="/static/js/curvedLines.js"></script>
+    <!-- DateJS -->
+    <script src="/static/js/date.js"></script>
+    <!-- JQVMap -->
+    <script src="/static/js/jquery.vmap.js"></script>
+    <script src="/static/js/jquery.vmap.world.js"></script>
+    <script src="/static/js/jquery.vmap.sampledata.js"></script>
+    <!-- bootstrap-daterangepicker -->
+    <script src="/static/js/moment/moment.min.js"></script>
+    <script src="/static/js/datepicker/daterangepicker.js"></script>
+    <script src="/static/localjs/common.js"></script>
+</div>
+</body>
+</html>
+</span>
