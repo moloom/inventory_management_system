@@ -3,6 +3,8 @@ package com.mo.controller;
 import com.alibaba.fastjson.JSONArray;
 import com.mo.pojo.Duty;
 import com.mo.pojo.Employee;
+import com.mo.pojo.Material;
+import com.mo.pojo.Product;
 import com.mo.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class EmployeeController {
@@ -24,12 +27,58 @@ public class EmployeeController {
     private EmployeeService employeeService;
 
     @GetMapping(value = {"/"})
-    public String index() {
+    public String index(HttpServletRequest request) {
+        // 查询 库存预警的 信息 start
+        List<Material> materialList = employeeService.findViewAlertRM();
+        List<Product> productList = employeeService.findViewAlertRP();
+        if (materialList.size() > 4) {
+            for (int i = 4; i < materialList.size(); ++i) {
+                materialList.remove(i);
+            }
+        }
+        if (productList.size() > 4) {
+            for (int i = 4; i < productList.size(); ++i) {
+                productList.remove(i);
+            }
+        }
+        request.setAttribute("materialList", materialList);
+        request.setAttribute("productList", productList);
+        // end
+
+        //查询最近7天内物料使用分布 start
+        Map<String, Object> map = employeeService.findMaterialUseInSeven();
+        //end
+        //查询最近7天，商品销量top10
+        List<Product> productList1 = employeeService.findProductSalesInSeven();
+        request.setAttribute("productListOfTop", productList1);
+        //查询客户数量、供应商数、物料种类、商品种类
+        Map<String, Object> map2 = employeeService.findCount();
+        map.putAll(map2);
+        //查询 近7天商品销售top4
+        Map<String, Object> map3 = employeeService.findProductSalesInSevenTop();
+        map.putAll(map3);
+        //end
+        //查询销售额
+        Float oneDay = employeeService.findSalesInDay(1);
+        Float twoDay = employeeService.findSalesInDay(2);
+        Float sevenDay = employeeService.findSalesInDay(7);
+        Float fourteenDay = employeeService.findSalesInDay(14);
+        //排除空值异常
+        if (oneDay == null) oneDay = Float.valueOf(0);
+        map.put("oneDaySales", oneDay);
+        map.put("oneDayThanYesterday", (Math.round((twoDay - oneDay) / oneDay) / 100.0) - 1);
+        map.put("sevenDaySales", sevenDay);
+        if (fourteenDay - sevenDay != 0)
+            map.put("sevenDayThanYesterday", Math.round((fourteenDay - sevenDay) / sevenDay) - 1);
+        else map.put("sevenDayThanYesterday", 0);
+        request.setAttribute("mapOfUse", map);
         return "main";
     }
 
     @GetMapping("/login")
-    public String login() {
+    public String login(HttpSession session) {
+        session.removeAttribute("mInOutRepositoryBid");
+        session.removeAttribute("pInOutRepositoryBid");
         return "login";
     }
 
@@ -61,11 +110,8 @@ public class EmployeeController {
 
     @PostMapping("/updatePassword")
     public String updatePassword(@RequestParam("newPassword") String newPassword, Employee employee, HttpServletRequest request) {
-        System.out.println("---------" + newPassword + "------" + employee);
         employee = employeeService.updatePassword(employee, newPassword);
-        if (employee != null) {
-            return "success";
-        }
+        if (employee != null) return "success";
         request.setAttribute("msg", "修改密码失败！");
         return "updatePassword";
     }
@@ -73,7 +119,8 @@ public class EmployeeController {
     @GetMapping("/logOut.html")
     public String logOut(HttpSession session, HttpServletRequest request) {
         session.removeAttribute("employeeSession");
-        session.removeAttribute("inRepositoryBid");
+        session.removeAttribute("mInOutRepositoryBid");
+        session.removeAttribute("pInOutRepositoryBid");
         request.setAttribute("msg", "退出登录成功！");
         return "login";
     }
@@ -129,13 +176,14 @@ public class EmployeeController {
         String flag = employeeService.insertEmployee(employee);
         if (!flag.equals("0")) {
             employee.setUid(flag);
-            System.out.println("employee\n\n"+flag+"\n"+employee);
+            System.out.println("employee\n\n" + flag + "\n" + employee);
             session.setAttribute("signupSession", employee);
             return JSONArray.toJSONString("/signupSuccess.html");
         } else {
             session.setAttribute("msg", "注册失败！");
             return JSONArray.toJSONString("/signup.html");
         }
-
     }
+
+
 }

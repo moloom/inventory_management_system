@@ -1,12 +1,17 @@
 package com.mo.controller;
 
-import com.mo.pojo.*;
+import com.alibaba.fastjson.JSONArray;
+import com.mo.pojo.ClothingTypes;
+import com.mo.pojo.Page;
+import com.mo.pojo.Product;
+import com.mo.pojo.ProductRecord;
 import com.mo.service.ProductService;
 import com.mo.utils.MyToString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
@@ -115,6 +120,13 @@ public class ProductController {
         return "product/detailProduct";
     }
 
+    /**
+     * 转到修改 product 界面
+     *
+     * @param id
+     * @param request
+     * @return
+     */
     @GetMapping("/updateProduct.html")
     public String toUpdateProduct(Integer id, HttpServletRequest request) {
         // 查询所有服装类型
@@ -132,6 +144,27 @@ public class ProductController {
         if (flag == 1) return "success";
         request.setAttribute("msg", "修改商品信息失败！");
         return "error";
+    }
+
+    @GetMapping("/detailProductRecord.html")
+    public String detailProductRecord(Integer id, Integer pageindex, HttpServletRequest request) {
+        Page page = new Page(pageindex);
+        List<ProductRecord> productRecordList = productService.findProductRecordByProductId(id);
+        page.setTotalCount(productService.findProductRecordCountByProductId(id));
+        request.setAttribute("productRecordList", productRecordList);
+        request.setAttribute("page", page);
+        request.setAttribute("id", id);
+        return "product/detailProductRecord";
+    }
+
+    //----------------ajax请求----------------------------
+
+    @PostMapping("/deleteProduct")
+    @ResponseBody
+    public String deleteProduct(Integer id) {
+        Integer flag = productService.deleteProduct(id);
+        if (flag == 1) return JSONArray.toJSONString("success");
+        return JSONArray.toJSONString("error");
     }
 
 }

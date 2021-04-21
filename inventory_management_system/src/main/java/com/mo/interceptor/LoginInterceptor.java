@@ -4,6 +4,7 @@ import com.mo.pojo.Employee;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -17,11 +18,10 @@ public class LoginInterceptor implements HandlerInterceptor {
         String requestURI = request.getRequestURI();
         System.out.println("preHandle拦截的请求路径是{}" + request.getRequestURL());
         Employee employee = (Employee) session.getAttribute("employeeSession");
-        if (employee!= null) {
-//            response.sendRedirect("/main");
-            return true;
-        }
+        if (employee != null) return true;
         request.setAttribute("msg", "请登录账号！");
+        session.removeAttribute("mInOutRepositoryBid");
+        session.removeAttribute("pInOutRepositoryBid");
         request.getRequestDispatcher("/login").forward(request, response);
         return false;
     }

@@ -36,6 +36,11 @@ public class Page {
         return sqlSelectPageStart *= 10;
     }
 
+    public Integer getPageIndex(Integer pageIndex) {
+        if (pageIndex == null) return 0;
+        return pageIndex;
+    }
+
     // 当设置多少条记录时，计算有几页，并保存到totalPageCount
     public void setTotalCount(Integer totalCount) {
         if (totalCount != null) {

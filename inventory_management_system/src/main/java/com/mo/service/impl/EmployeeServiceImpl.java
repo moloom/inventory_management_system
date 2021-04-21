@@ -3,6 +3,8 @@ package com.mo.service.impl;
 import com.mo.mapper.EmployeeMapper;
 import com.mo.pojo.Duty;
 import com.mo.pojo.Employee;
+import com.mo.pojo.Material;
+import com.mo.pojo.Product;
 import com.mo.service.EmployeeService;
 import com.mo.utils.MyToString;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +12,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
@@ -24,7 +29,7 @@ public class EmployeeServiceImpl implements EmployeeService {
      * @param employee
      * @return
      */
-    @Transactional(readOnly = true,timeout = 15)
+    @Transactional(readOnly = true, timeout = 15)
     @Override
     public Employee login(Employee employee) {
         return employeeMapper.login(employee);
@@ -37,7 +42,7 @@ public class EmployeeServiceImpl implements EmployeeService {
      * @param id
      * @return
      */
-    @Transactional(readOnly = true,timeout = 15)
+    @Transactional(readOnly = true, timeout = 15)
     @Override
     public Employee findEmployeeById(Integer id) {
         return employeeMapper.findEmployeeById(id);
@@ -50,7 +55,6 @@ public class EmployeeServiceImpl implements EmployeeService {
      * @param employee
      * @param newPassword
      * @return 修改成功返回 1，错误返回 0
-     *
      */
     @Transactional(rollbackFor = {Exception.class}, propagation = Propagation.REQUIRED, timeout = 15)
     @Override
@@ -72,7 +76,7 @@ public class EmployeeServiceImpl implements EmployeeService {
      *
      * @return
      */
-    @Transactional(readOnly = true,timeout = 15)
+    @Transactional(readOnly = true, timeout = 15)
     @Override
     public List<Duty> findDutyList() {
         return employeeMapper.findDutyList();
@@ -127,6 +131,151 @@ public class EmployeeServiceImpl implements EmployeeService {
             flag = employeeMapper.updatePassword(employee);
         }
         return flag;
+    }
+
+    /**
+     * 查询 material 当前数量低于最低库存的
+     *
+     * @return
+     */
+    @Transactional(readOnly = true, timeout = 15)
+    @Override
+    public List<Material> findViewAlertRM() {
+        return employeeMapper.findViewAlertRM();
+    }
+
+    /**
+     * 查询 product 当前数量低于最低库存的
+     *
+     * @return
+     */
+    @Transactional(readOnly = true, timeout = 15)
+    @Override
+    public List<Product> findViewAlertRP() {
+        return employeeMapper.findViewAlertRP();
+    }
+
+    /**
+     * 查询近七天内，物料的使用分布
+     *
+     * @return
+     */
+    @Transactional(readOnly = true, timeout = 15)
+    @Override
+    public Map<String, Object> findMaterialUseInSeven() {
+        Map<String, Object> map = new HashMap<String, Object>();
+        List<Material> materialList = employeeMapper.findMaterialUseInSeven();
+        float sum = employeeMapper.findTotalUseInSeven() * -1;
+        for (Material m : materialList) {
+            m.setName(employeeMapper.findMaterialNameById(m.getId()));
+            Integer q = Integer.valueOf(m.getQuantity()) * -1;
+            m.setQuantity(q.toString());
+        }
+        int i = 0;
+        Integer percentsum = 0;
+        map.put("blueName", materialList.get(i).getName());
+        map.put("bluePercent", ((float) (Math.round(Float.valueOf(materialList.get(i).getQuantity()) / sum * 100))));
+        percentsum += Math.round(Float.valueOf(materialList.get(i).getQuantity()) / sum * 100);
+        ++i;
+        map.put("greenName", materialList.get(i).getName());
+        map.put("greenPercent", ((float) (Math.round(Float.valueOf(materialList.get(i).getQuantity()) / sum * 100))));
+        percentsum += Math.round(Float.valueOf(materialList.get(i).getQuantity()) / sum * 100);
+        ++i;
+        map.put("purpleName", materialList.get(i).getName());
+        map.put("purplePercent", ((float) (Math.round(Float.valueOf(materialList.get(i).getQuantity()) / sum * 100))));
+        percentsum += Math.round(Float.valueOf(materialList.get(i).getQuantity()) / sum * 100);
+        ++i;
+        map.put("aeroName", materialList.get(i).getName());
+        map.put("aeroPercent", ((float) (Math.round(Float.valueOf(materialList.get(i).getQuantity()) / sum * 100))));
+        percentsum += Math.round(Float.valueOf(materialList.get(i).getQuantity()) / sum * 100);
+        map.put("OthersPercent", Integer.valueOf(100 - percentsum));
+        return map;
+    }
+
+    /**
+     * 查询 近7天，商品销量的top10
+     *
+     * @return
+     */
+    @Transactional(readOnly = true, timeout = 15)
+    @Override
+    public List<Product> findProductSalesInSeven() {
+        List<Product> productList = employeeMapper.findProductSalesInSeven();
+        for (Product p : productList) {
+            Integer m = Integer.valueOf(p.getQuantity()) * -1;
+            p.setQuantity(m.toString());
+            Product pp = employeeMapper.findProductById(p.getId());
+            p.setName(pp.getName());
+            p.setPid(pp.getPid());
+        }
+        return productList;
+    }
+
+    /**
+     * 查询客户数量、供应商数、物料种类、商品种类
+     *
+     * @return
+     */
+    @Transactional(readOnly = true, timeout = 15)
+    @Override
+    public Map<String, Object> findCount() {
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("customerSize", employeeMapper.findCustomerCount());
+        map.put("supplierSize", employeeMapper.findSupplierCount());
+        map.put("productSize", employeeMapper.findProductCount());
+        map.put("materialSize", employeeMapper.findMaterialCount());
+        return map;
+    }
+
+    /**
+     * 查询 多少天 内的销售额
+     * 条件 ：天数
+     *
+     * @param day
+     * @return
+     */
+    @Override
+    public Float findSalesInDay(Integer day) {
+        return employeeMapper.findSalesInDay(day);
+    }
+
+    /**
+     * 查询 近7天内 商品的销售分布
+     *
+     * @return
+     */
+    @Override
+    public Map<String, Object> findProductSalesInSevenTop() {
+        Map<String, Object> map = new HashMap<String, Object>();
+        List<Product> productList = employeeMapper.findProductSalesInSeven();
+        List<Product> products = new ArrayList<Product>();
+        float sum = employeeMapper.findTotalProductUseInSeven() * -1;
+        for (int i = 0; i < 4; ++i) {
+            Product product = employeeMapper.findProductById(productList.get(i).getId());
+            productList.get(i).setName(product.getName());
+            Integer q = Integer.valueOf(productList.get(i).getQuantity()) * -1;
+            productList.get(i).setQuantity(q.toString());
+            products.add(productList.get(i));
+        }
+        int i = 0;
+        Integer percentsum = 0;
+        map.put("BlueName", products.get(i).getName());
+        map.put("BlueV", ((float) (Math.round(Float.valueOf(products.get(i).getQuantity()) / sum * 100))));
+        percentsum += Math.round(Float.valueOf(products.get(i).getQuantity()) / sum * 100);
+        ++i;
+        map.put("GreenName", products.get(i).getName());
+        map.put("GreenV", ((float) (Math.round(Float.valueOf(products.get(i).getQuantity()) / sum * 100))));
+        percentsum += Math.round(Float.valueOf(products.get(i).getQuantity()) / sum * 100);
+        ++i;
+        map.put("GrayName", products.get(i).getName());
+        map.put("GrayV", ((float) (Math.round(Float.valueOf(products.get(i).getQuantity()) / sum * 100))));
+        percentsum += Math.round(Float.valueOf(products.get(i).getQuantity()) / sum * 100);
+        ++i;
+        map.put("PurpleName", products.get(i).getName());
+        map.put("PurpleV", ((float) (Math.round(Float.valueOf(products.get(i).getQuantity()) / sum * 100))));
+        percentsum += Math.round(Float.valueOf(products.get(i).getQuantity()) / sum * 100);
+        map.put("OthersV", Integer.valueOf(100 - percentsum));
+        return map;
     }
 
 

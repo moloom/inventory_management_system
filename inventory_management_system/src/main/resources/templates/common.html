@@ -61,21 +61,40 @@
                             </li>
                             <li>
                                 <a>
-                                    <i class="glyphicon glyphicon-book"></i> 库存管理
+                                    <i class="glyphicon glyphicon-file"></i> 商品单据管理
                                     <span class="fa fa-chevron-down"></span>
                                 </a>
                                 <ul class="nav child_menu">
                                     <li>
-                                        <a href="#">出库</a>
+                                        <a href="/addPInOutRepositoryOne.html">新增商品出入库单据</a>
                                     </li>
                                     <li>
-                                        <a href="/inRepository.html">入库</a>
+                                        <a href="/managePInOutRepository.html">管理商品单据</a>
                                     </li>
-                                    <li><a href="#">库存报警查询</a></li>
+                                    <li>
+                                        <a href="/viewAlertRP.html">商品库存报警查询</a>
+                                    </li>
                                 </ul>
                             </li>
                             <li>
-                                <a><i class="glyphicon glyphicon-list"></i>&nbsp;&nbsp;供应商
+                                <a>
+                                    <i class="glyphicon glyphicon-file"></i> 物料单据管理
+                                    <span class="fa fa-chevron-down"></span>
+                                </a>
+                                <ul class="nav child_menu">
+                                    <li>
+                                        <a href="/addMInOutRepositoryOne.html">新增物料出入库单据</a>
+                                    </li>
+                                    <li>
+                                        <a href="/manageMInOutRepository.html">管理物料单据</a>
+                                    </li>
+                                    <li>
+                                        <a href="/viewAlertRM.html">物料库存报警查询</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a><i class="glyphicon glyphicon-tower"></i>&nbsp;&nbsp;供应商
                                     <span class="fa fa-chevron-down"></span>
                                 </a>
                                 <ul class="nav child_menu">
@@ -88,7 +107,7 @@
                                 </ul>
                             </li>
                             <li>
-                                <a><i class="glyphicon glyphicon-list"></i>&nbsp;&nbsp;客户
+                                <a><i class="glyphicon glyphicon-user"></i>&nbsp;&nbsp;客户
                                     <span class="fa fa-chevron-down"></span>
                                 </a>
                                 <ul class="nav child_menu">
@@ -101,7 +120,7 @@
                                 </ul>
                             </li>
                             <li>
-                                <a><i class="glyphicon glyphicon-list"></i>&nbsp;&nbsp;商品
+                                <a><i class="glyphicon glyphicon-equalizer"></i>&nbsp;&nbsp;商品
                                     <span class="fa fa-chevron-down"></span>
                                 </a>
                                 <ul class="nav child_menu">
@@ -120,7 +139,7 @@
                                 </ul>
                             </li>
                             <li>
-                                <a><i class="glyphicon glyphicon-list"></i>&nbsp;&nbsp;物料
+                                <a><i class="glyphicon glyphicon-folder-close"></i>&nbsp;&nbsp;物料
                                     <span class="fa fa-chevron-down"></span>
                                 </a>
                                 <ul class="nav child_menu">
@@ -172,10 +191,10 @@
                                 <li><a th:href="@{'/employeeDetail.html?id='+${session.employeeSession.getId()}}">
                                     <i class="fa pull-right fa-search-plus"></i>我的资料</a>
                                 </li>
-                                <li><a th:href="@{/updatePassword.html}">
+                                <li><a href="/updatePassword.html">
                                     <i class="fa pull-right fa-wrench"></i>修改密码</a>
                                 </li>
-                                <li><a th:href="@{/logOut.html}">
+                                <li><a href="/logOut.html">
                                     <i class="fa fa-sign-out pull-right"></i>退出登录</a>
                                 </li>
                             </ul>

@@ -15,8 +15,23 @@ public class MaterialRecord {
     //附
     private String material_name;
     private String employee_name;
+    private String material_id;
+    private String create_name;
 
-    public MaterialRecord() {
+    public String getMaterial_id() {
+        return material_id;
+    }
+
+    public void setMaterial_id(String material_id) {
+        this.material_id = material_id;
+    }
+
+    public String getCreate_name() {
+        return create_name;
+    }
+
+    public void setCreate_name(String create_name) {
+        this.create_name = create_name;
     }
 
     public String getEmployee_name() {
@@ -103,6 +118,8 @@ public class MaterialRecord {
                 ", create_time=" + create_time +
                 ", material_name='" + material_name + '\'' +
                 ", employee_name='" + employee_name + '\'' +
+                ", material_id='" + material_id + '\'' +
+                ", create_name='" + create_name + '\'' +
                 '}';
     }
 }

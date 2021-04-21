@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mo.mapper.MInOutRepositoryMapper">
+    <insert id="insertMInOutRepository" parameterType="com.mo.pojo.MInOutRepository">
+        insert into m_in_out_repository(
+        bid,
+        material_id,
+        quantity,
+        unit_price,
+        total_price,
+        supplier_id,
+        takeDepartment,
+        takeName,
+        status,
+        deliver_date,
+        repository_id,
+        create_by,
+        create_time
+        ) values(
+        #{bid},
+        #{material_id},
+        #{quantity},
+        #{unit_price},
+        #{total_price},
+        #{supplier_id},
+        #{takeDepartment},
+        #{takeName},
+        #{status},
+        #{deliver_date},
+        #{repository_id},
+        #{create_by},
+        now()
+        )
+
+    </insert>
+
+    <insert id="insertMaterialRecord" parameterType="com.mo.pojo.MaterialRecord">
+        insert into material_record(
+        iid,
+        mid,
+        status,
+        quantity,
+        create_by,
+        create_time
+        ) values(
+        #{iid},
+        #{mid},
+        #{status},
+        #{quantity},
+        #{create_by},
+        now()
+        )
+    </insert>
+
+    <update id="updateMInOutRepository" parameterType="com.mo.pojo.MInOutRepository">
+        update m_in_out_repository set
+        <if test="material_id !=null and material_id !=''">
+            material_id = #{material_id},
+        </if>
+        <if test="quantity !=null and quantity !=''">
+            quantity = #{quantity},
+        </if>
+        <if test="unit_price !=null and unit_price !=''">
+            unit_price = #{unit_price},
+        </if>
+        <if test="supplier_id !=null and supplier_id !=''">
+            supplier_id = #{supplier_id},
+        </if>
+        <if test="takeDepartment !=null and takeDepartment !=''">
+            takeDepartment = #{takeDepartment},
+        </if>
+        <if test="takeName !=null and takeName !=''">
+            takeName = #{takeName},
+        </if>
+        <if test="total_price !=null and total_price !=''">
+            total_price = #{total_price},
+        </if>
+        <if test="status !=null and status !=0">
+            status = #{status},
+        </if>
+        <if test="deliver_date !=null">
+            deliver_date = #{deliver_date},
+        </if>
+        <if test="repository_id !=null and repository_id !=0">
+            repository_id = #{repository_id},
+        </if>
+        modify_time=now(),
+        modify_by=#{modify_by}
+        where bid=#{bid}
+    </update>
+
+    <update id="updateMaterialQuantityOfTotalAndAvailable" parameterType="com.mo.pojo.Material">
+        update material set
+        <if test="name !=null and name !=''">
+            name = #{name},
+        </if>
+        <if test="specification !=null and specification !=''">
+            specification = #{specification},
+        </if>
+        <if test="color !=null and color !=''">
+            color = #{color},
+        </if>
+        <if test="unit_price !=null">
+            unit_price = #{unit_price},
+        </if>
+        <if test="position !=null and position !=''">
+            position = #{position},
+        </if>
+        <if test="minimum_stock !=null">
+            minimum_stock = #{minimum_stock},
+        </if>
+        <if test="unit !=null and unit !=''">
+            unit = #{unit},
+        </if>
+        <if test="supplier_id !=null">
+            supplier_id = #{supplier_id},
+        </if>
+        <if test="note !=null and note !=''">
+            note = #{note},
+        </if>
+        <if test="total_quantity !=null and total_quantity !=0">
+            total_quantity = #{total_quantity},
+        </if>
+        <if test="available_quantity !=null and available_quantity !=0">
+            available_quantity = #{available_quantity},
+        </if>
+        <if test="frozen_quantity !=null and frozen_quantity !=0">
+            frozen_quantity = #{frozen_quantity},
+        </if>
+        <if test="requisite_delivery_quantity !=null and requisite_delivery_quantity !=0">
+            requisite_delivery_quantity = #{requisite_delivery_quantity},
+        </if>
+        modify_time=now(),
+        modify_by=#{modify_by}
+        where id=#{id}
+    </update>
+
+    <delete id="deleteEmptyMIOR">
+        delete from m_in_out_repository where status is null
+        and DATE_SUB(CURDATE(), INTERVAL 1 DAY) &gt;= date(create_time)
+    </delete>
+
+    <select id="findMaterialListByNameAndSupplier" resultType="com.mo.pojo.Material" parameterType="java.util.Map">
+
+        select m.*,s.name as supplier_name from material m , supplier s
+        where 1=1
+        <if test="name !=null and name !=''">
+            and m.name like concat(concat('%',#{name}),'%')
+        </if>
+        <if test="supplier_id !=null and supplier_id !=''">
+            and m.supplier_id =#{supplier_id}
+        </if>
+        and m.supplier_id=s.id
+        ORDER BY m.create_time desc limit #{start},10
+    </select>
+
+    <select id="findMaterialCountByNameAndSupplier" resultType="java.lang.Integer" parameterType="java.util.Map">
+
+        select count(1) from material m
+        where 1=1
+        <if test="name !=null and name !=''">
+            and m.name like concat(concat('%',#{name}),'%')
+        </if>
+        <if test="supplier_id !=null and supplier_id !=''">
+            and m.supplier_id =#{supplier_id}
+        </if>
+    </select>
+
+    <select id="findMiorCount" resultType="java.lang.Integer" parameterType="java.util.Map">
+        select count(1) from m_in_out_repository
+        where 1=1
+        <if test="bid !=null and bid !=''">
+            and bid like concat(concat('%',#{bid}),'%')
+        </if>
+        <if test="status !=null">
+            and status =#{status}
+        </if>
+        <if test="repository_id !=null">
+            and repository_id =#{repository_id}
+        </if>
+        <if test="dayTime !=null">
+            and DATE_SUB(CURDATE(), INTERVAL #{dayTime} DAY) &lt;= date(create_time)
+        </if>
+        and status is not null
+    </select>
+
+    <select id="findMiorList" resultType="com.mo.pojo.MInOutRepository" parameterType="java.util.Map">
+        select m.*,e.name as create_name from m_in_out_repository m,employee e
+        where 1=1
+        <if test="bid !=null and bid !=''">
+            and m.bid like concat(concat('%',#{bid}),'%')
+        </if>
+        <if test="status !=null">
+            and m.status =#{status}
+        </if>
+        <if test="repository_id !=null">
+            and m.repository_id =#{repository_id}
+        </if>
+        <if test="dayTime !=null">
+            and DATE_SUB(CURDATE(), INTERVAL #{dayTime} DAY) &lt;= date(m.create_time)
+        </if>
+        and m.status is not null
+        and m.create_by=e.id
+        ORDER BY m.create_time desc limit #{start},10
+    </select>
+
+    <select id="findOneMInOutRepositoryByid" resultType="com.mo.pojo.MInOutRepository">
+        select m.*,e.name as create_name,r.name as repository_name
+        from m_in_out_repository m,employee e ,repository r
+        where
+        m.id=#{id}
+        and m.create_by=e.id
+        and r.id=m.repository_id
+    </select>
+
+    <select id="viewAlertRM" resultType="com.mo.pojo.Material">
+        select *
+        from material
+        where available_quantity &lt;= minimum_stock
+    </select>
+
+</mapper>

@@ -46,6 +46,17 @@ public class MaterialServiceImpl implements MaterialService {
     }
 
     /**
+     * 删除一条 material
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public Integer deleteMaterial(Integer id) {
+        return materialMapper.deleteMaterial(id);
+    }
+
+    /**
      * 查询 Material
      * 条件：name、supplier_id
      *

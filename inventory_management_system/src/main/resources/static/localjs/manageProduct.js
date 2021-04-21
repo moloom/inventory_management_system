@@ -16,31 +16,22 @@ $(function () {
 });
 
 $(".deleteProduct").on("click", function () {
-
-    //查询是否有正在进行的交易
-
     var obj = $(this);
-    if (confirm("你确定要删除此考试吗？")) {
-        /* $.ajax({
-             type: "POST",
-             url: "deletePaper",
-             data: {
-                 id: obj.attr("materialId")
-             },
-             dataType: "json",
-             success: function (data) {
-                 if (data.delresult == "true") { //删除成功：移除删除行
-                     alert("删除成功");
-                     obj.parents("tr").remove(); //删除当前的这行
-                     // history.go(0); //刷新
-                 } else { //删除失败
-                     alert("对不起，删除试题失败");
-                 }
-             },
-             error: function (data) {
-                 alert("对不起，删除失败");
-             }
-         });*/
+    if (confirm("你确定要删除此商品吗？")) {
+        $.ajax({
+            type: "POST",
+            url: "deleteProduct",
+            data: {
+                id: obj.children().attr("productid")
+            },
+            dataType: "json",
+            success: function (data) {
+                obj.parents("tr").remove(); //删除当前的这行
+            },
+            error: function (data) {
+                alert("对不起，删除失败");
+            }
+        });
     }
 });
 

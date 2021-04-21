@@ -2,8 +2,11 @@ package com.mo.service;
 
 import com.mo.pojo.Duty;
 import com.mo.pojo.Employee;
+import com.mo.pojo.Material;
+import com.mo.pojo.Product;
 
 import java.util.List;
+import java.util.Map;
 
 public interface EmployeeService {
     /**
@@ -32,7 +35,6 @@ public interface EmployeeService {
      */
     public Employee updatePassword(Employee employee, String newPassword);
 
-
     /**
      * 1：查询所有的 Duty
      *
@@ -58,4 +60,55 @@ public interface EmployeeService {
      * @return
      */
     public int retrievePassword(Employee employee);
+
+    /**
+     * 查询 material 当前数量低于最低库存的
+     *
+     * @return
+     */
+    public List<Material> findViewAlertRM();
+
+    /**
+     * 查询 product 当前数量低于最低库存的
+     *
+     * @return
+     */
+    public List<Product> findViewAlertRP();
+
+    /**
+     * 查询近七天内，物料的使用分布
+     *
+     * @return
+     */
+    public Map<String, Object> findMaterialUseInSeven();
+
+    /**
+     * 查询 近7天，商品销量的top10
+     *
+     * @return
+     */
+    public List<Product> findProductSalesInSeven();
+
+    /**
+     * 查询客户数量、供应商数、物料种类、商品种类
+     *
+     * @return
+     */
+    public Map<String, Object> findCount();
+
+    /**
+     * 查询 多少天 内的销售额
+     * 条件 ：天数
+     *
+     * @param day
+     * @return
+     */
+    public Float findSalesInDay(Integer day);
+
+    /**
+     * 查询 近7天内 商品的销售分布
+     *
+     * @return
+     */
+    public Map<String, Object> findProductSalesInSevenTop();
 }

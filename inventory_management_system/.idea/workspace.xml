@@ -59,29 +59,30 @@
     <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resources/static/localjs" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.last.edited" value="Global Libraries" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.18990704" />
     <property name="restartRequiresConfirmation" value="false" />
-    <property name="settings.editor.selected.configurable" value="MavenSettings" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="F:\IdeaProjects\inventory_management_system\src\main\resources\templates\mInOutRepository" />
+      <recent name="F:\IdeaProjects\inventory_management_system\src\main\resources\templates\pInOutRepository" />
       <recent name="F:\IdeaProjects\inventory_management_system\src\main\resources\static\localjs" />
-      <recent name="F:\IdeaProjects\inventory_management_system\src\main\resources\templates\product" />
+      <recent name="F:\IdeaProjects\inventory_management_system\src\main\resources\templates" />
       <recent name="F:\IdeaProjects\inventory_management_system\src\main\resources\mapper" />
-      <recent name="F:\IdeaProjects\inventory_management_system\src\main\resources\templates\supplier" />
-      <recent name="F:\IdeaProjects\inventory_management_system\src\main\resources\templates\customer" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.mo.service.impl" />
-      <recent name="com.mo.service" />
       <recent name="com.mo.mapper" />
       <recent name="com.mo.controller" />
+      <recent name="com.mo.service" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="F:\IdeaProjects\inventory_management_system\src\main\resources\templates\mInOutRepository" />
       <recent name="F:\IdeaProjects\inventory_management_system\src\main\resources\static\images" />
       <recent name="F:\IdeaProjects\inventory_management_system\src\main\resources\templates" />
     </key>
@@ -154,7 +155,15 @@
       <workItem from="1616717343244" duration="38591000" />
       <workItem from="1616810714634" duration="35290000" />
       <workItem from="1616856490368" duration="8183000" />
-      <workItem from="1616897435827" duration="30045000" />
+      <workItem from="1616897435827" duration="30886000" />
+      <workItem from="1616993649516" duration="29248000" />
+      <workItem from="1617079093617" duration="5219000" />
+      <workItem from="1617091748633" duration="18666000" />
+      <workItem from="1617149684658" duration="35741000" />
+      <workItem from="1617243005347" duration="28698000" />
+      <workItem from="1617284383667" duration="7942000" />
+      <workItem from="1617295387033" duration="41000" />
+      <workItem from="1618827145980" duration="766000" />
     </task>
     <servers />
   </component>

@@ -29,6 +29,8 @@ public class Product {
     private String size_name;
     private String clothing_types_name;
     private String clothing_sex_name;
+    private String quantity;
+    private Float price;
 
     //判断重要的数据是否空
     public boolean isEmpty() {
@@ -62,6 +64,25 @@ public class Product {
             case 3:
                 clothing_sex_name = "中性(男女都能穿)";
         }
+    }
+
+    public String getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(String quantity) {
+        if (unit_price != null) {
+            price = unit_price.multiply(BigDecimal.valueOf(Integer.valueOf(quantity))).floatValue();
+        }
+        this.quantity = quantity;
+    }
+
+    public Float getPrice() {
+        return price;
+    }
+
+    public void setPrice(Float price) {
+        this.price = price;
     }
 
     public String getClothing_sex_name() {
@@ -288,6 +309,8 @@ public class Product {
                 ", size_name='" + size_name + '\'' +
                 ", clothing_types_name='" + clothing_types_name + '\'' +
                 ", clothing_sex_name='" + clothing_sex_name + '\'' +
+                ", quantity='" + quantity + '\'' +
+                ", price=" + price +
                 '}';
     }
 }

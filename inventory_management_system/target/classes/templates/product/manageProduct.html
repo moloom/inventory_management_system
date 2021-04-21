@@ -175,7 +175,8 @@
                                                                 <li>
                                                                     <a th:href="@{'/detailProduct.html?id='+${product.id}}"
                                                                        data-toggle="tooltip" data-placement="top"
-                                                                       title="">查看商品详情</a></li>
+                                                                       title="">查看商品详情</a>
+                                                                </li>
                                                                 <li><a data-toggle="tooltip" data-placement="top"
                                                                        th:href="'detailProductRecord.html?id='+${product.id}">查看流水记录</a>
                                                                 </li>
@@ -184,10 +185,10 @@
                                                                        th:href="@{'/updateProduct.html?id='+${product.id}}">
                                                                         修改商品信息</a>
                                                                 </li>
-                                                                <li class="deleteMaterial"
+                                                                <li class="deleteProduct"
                                                                     th:if="${session.employeeSession.getRights()<3}">
                                                                     <a data-toggle="tooltip" data-placement="top"
-                                                                       th:attr="productId=${product.id}">删除商品</a></li>
+                                                                       th:attr="productid=${product.id}">删除商品</a></li>
                                                             </ul>
                                                         </div>
                                                     </td>

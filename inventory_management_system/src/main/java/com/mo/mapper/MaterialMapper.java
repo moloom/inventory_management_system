@@ -3,6 +3,7 @@ package com.mo.mapper;
 import com.mo.pojo.Material;
 import com.mo.pojo.MaterialRecord;
 import com.mo.pojo.Supplier;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -34,6 +35,9 @@ public interface MaterialMapper {
 
     @Select("select m.*,s.name as supplier_name from material m , supplier s where m.supplier_id=s.id")
     public List<Material> findAllMaterial();
+
+    @Delete("delete from material where id=#{id}")
+    public Integer deleteMaterial(Integer id);
 
     public List<MaterialRecord> detailMaterialRecord(Integer id, Integer start);
 

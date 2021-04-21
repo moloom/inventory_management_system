@@ -114,6 +114,7 @@ public class MaterialController {
         List<MaterialRecord> materialRecordList = materialService.detailMaterialRecord(id, page.getSqlSelectPageStart());
         request.setAttribute("materialRecordList", materialRecordList);
         request.setAttribute("page", page);
+        request.setAttribute("id", id);
         return "material/detailMaterialRecord";
     }
 
@@ -135,6 +136,15 @@ public class MaterialController {
             return JSONArray.toJSONString("/success.html");
         }
         return JSONArray.toJSONString("/error");
+    }
+
+    @PostMapping("/deleteMaterial")
+    @ResponseBody
+    public String deleteMaterial(Integer id) {
+        //查询是否有正在进行的交易
+        Integer flag = materialService.deleteMaterial(id);
+        if (flag == 1) return JSONArray.toJSONString("success");
+        return JSONArray.toJSONString("error");
     }
 }
 

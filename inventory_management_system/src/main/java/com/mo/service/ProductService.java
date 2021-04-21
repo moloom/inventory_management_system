@@ -2,6 +2,7 @@ package com.mo.service;
 
 import com.mo.pojo.ClothingTypes;
 import com.mo.pojo.Product;
+import com.mo.pojo.ProductRecord;
 
 import java.util.List;
 import java.util.Map;
@@ -73,7 +74,6 @@ public interface ProductService {
      */
     public Product findOneProductById(Integer id);
 
-
     /**
      * 查询 product
      * 条件：name、clothingTypes,color
@@ -90,6 +90,22 @@ public interface ProductService {
      * @return
      */
     public Integer findProductCountByMap(Map<String, Object> map);
+
+    /**
+     * 查询 商品对应的所有流水记录
+     *
+     * @param id
+     * @return
+     */
+    public List<ProductRecord> findProductRecordByProductId(Integer id);
+
+    /**
+     * 查询商品队友的流水记录条数
+     *
+     * @param id
+     * @return
+     */
+    public Integer findProductRecordCountByProductId(Integer id);
 
     /**
      * 查下 物料的相关流水记录

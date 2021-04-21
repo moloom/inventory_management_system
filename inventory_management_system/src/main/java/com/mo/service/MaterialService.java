@@ -25,6 +25,14 @@ public interface MaterialService {
     public int insertMaterial(Material material);
 
     /**
+     * 删除一条 material
+     *
+     * @param id
+     * @return
+     */
+    public Integer deleteMaterial(Integer id);
+
+    /**
      * 查询 Material
      * 条件：name、supplier_id
      *

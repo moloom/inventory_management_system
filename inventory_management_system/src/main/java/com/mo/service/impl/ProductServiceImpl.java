@@ -3,6 +3,7 @@ package com.mo.service.impl;
 import com.mo.mapper.ProductMapper;
 import com.mo.pojo.ClothingTypes;
 import com.mo.pojo.Product;
+import com.mo.pojo.ProductRecord;
 import com.mo.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -136,5 +137,28 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Integer findProductCountByMap(Map<String, Object> map) {
         return productMapper.findProductCountByMap(map);
+    }
+
+    /**
+     * 查询 商品对应的所有流水记录
+     *
+     * @param id
+     * @return
+     */
+    @Transactional(timeout = 15, readOnly = true)
+    @Override
+    public List<ProductRecord> findProductRecordByProductId(Integer id) {
+        return productMapper.findProductRecordByProductId(id);
+    }
+
+    /**
+     * 查询商品队友的流水记录条数
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public Integer findProductRecordCountByProductId(Integer id) {
+        return productMapper.findProductRecordCountByProductId(id);
     }
 }

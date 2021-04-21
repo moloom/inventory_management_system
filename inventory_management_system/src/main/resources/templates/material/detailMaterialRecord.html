@@ -17,37 +17,6 @@
                                 <h2>物料流水记录 <small th:replace="common::commonContentTitle"></small></h2>
                                 <div class="clearfix"></div>
                             </div>
-                            <div>
-                                <form method="get" action="manageMaterialSearch">
-                                    <input type="hidden" name="pageIndex" value="0"/>
-                                    <div style="width: 30%;float: left;">
-                                        <div class="form-group">
-                                            <label style="margin-top: 8px;margin-right: 0px;"
-                                                   class="control-label col-md-3 col-sm-3 col-xs-12">物料名称:</label>
-                                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                                <input name="name" type="text" autocomplete="off"
-                                                       class="form-control col-md-7 col-xs-12">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div style="width: 30%;float: left;">
-                                        <div class="form-group">
-                                            <label style="margin-top: 8px;"
-                                                   class="control-label col-md-3 col-sm-3 col-xs-12">供应商:</label>
-                                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                                <select id="supplier_id" name="supplier_id" class="form-control">
-                                                    <option value="0">----请选择----</option>
-                                                    <option th:each="supplier : ${supplierList}"
-                                                            th:text="${supplier.name}"
-                                                            th:value="${supplier.id}"></option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <input type="submit" class="btn btn-primary" value="查询"/>&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <input type="reset" class="btn btn-info" value="重置条件">
-                                </form>
-                            </div>
                         </div>
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12">
@@ -108,11 +77,14 @@
                                                 <tr role="row" class="odd" th:each="mRecord : ${materialRecordList}">
                                                     <td>[[${mRecord.iid}]]</td>
                                                     <td>[[${mRecord.material_name}]]</td>
-                                                    <td th:if="${mRecord.status ==1}">正常入库</td>
-                                                    <td th:if="${mRecord.status ==2}">退货</td>
+                                                    <td th:if="${mRecord.status ==1}">入库</td>
+                                                    <td th:if="${mRecord.status ==2}">出库</td>
+                                                    <td th:if="${mRecord.status ==3}">退货</td>
                                                     <td>[[${mRecord.quantity}]]</td>
                                                     <td>[[${mRecord.employee_name}]]</td>
-                                                    <td>[[${#dates.format(mRecord.create_time,'yyyy-MM-dd HH:mm:ss')}]]</td>
+                                                    <td>[[${#dates.format(mRecord.create_time,'yyyy-MM-dd
+                                                        HH:mm:ss')}]]
+                                                    </td>
                                                 </tr>
                                                 </tbody>
                                             </table>
@@ -193,11 +165,21 @@
                 </div>
             </div>
         </div>
+        <form action="/detailMaterialRecord.html" method="get" id="form1">
+            <input type="hidden" th:value="${id}" name="id">
+            <input type="hidden" name="pageindex" value="0">
+        </form>
         <div th:replace="common::commonFooter"></div>
     </div>
 </div>
 <div th:replace="common::commonJs"></div>
-<script src="/static/localjs/manageMaterial.js"></script>
+<script>
+    function page_nav(pageindex) {
+        console.log("page_nav请求页数：" + pageindex);
+        $("input[name='pageindex']").val(pageindex);
+        $("#form1").submit();
+    }
+</script>
 </body>
 </html>
 
